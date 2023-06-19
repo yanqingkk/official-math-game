@@ -1,0 +1,40 @@
+﻿@page "/Story-Page"
+
+<style>
+    .main {
+        display: flex;
+    }
+</style>
+
+<div class="main">
+    <div style="cursor: pointer" @onclick="NextImage">
+        <img src="@currentImage" alt="Image">
+    </div>
+
+    <button @onclick="SkipStory">Skip to game</button>
+</div>
+
+@code {
+    //Main story images cycling through
+    private string[] images = new string[]
+        {
+        "images/1.jpg",
+        "images/2.jpg",
+        "images/3746256.jpg"
+    };
+
+    private int currentIndex = 0;
+    private string currentImage => images[currentIndex];
+
+    private void NextImage()
+    {
+        currentIndex = (currentIndex + 1) % images.Length;
+    }
+
+    //Skip to game button
+    private void SkipStory()
+    {
+        NavigationManager.NavigateTo("/Main-Map");
+    }
+
+}

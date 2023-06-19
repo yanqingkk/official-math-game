@@ -1,0 +1,30 @@
+﻿@page "/You-Win"
+
+<style>
+    .you-win {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+</style>
+
+<h1 class="you-win">
+    YOU WIN!
+
+    :)
+</h1>
+
+<div class="button">
+    <button class="click-to-start-button" @onclick="ToMainMap">Return to main map</button>
+</div>
+
+@code {
+    private void ToMainMap()
+    {
+        NavigationManager.NavigateTo("/Main-Map");
+    }
+}

@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<style>
+    .home-page {
+        background-image: url("images/opening-screen.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        overflow: hidden;
+        margin: -10px;
+        display: flex;
+    }
+    .to-story-button {
+        display: flex;
+        padding: 30%;
+        justify-content: center;
+        height: 100%;
+        overflow: hidden;
+        margin: -10px;
+        display: flex;
+
+    }
+    .click-to-start-button {
+        background-color: white;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+        width: 120px;
+        height: 30px;
+        border: none;
+    }
+</style>
+
+<div class="home-page">
+
+    <div class="to-story-button">
+
+        <button class="click-to-start-button" @onclick="ToStory" alt="ToStory">Click here to start!</button>
+
+    </div>
+
+</div>
+
+@code {
+    //Go to Story page button
+    private void ToStory()
+    {
+        NavigationManager.NavigateTo("/Story-Page");
+    }
+
+} 

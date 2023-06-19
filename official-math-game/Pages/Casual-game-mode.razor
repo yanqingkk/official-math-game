@@ -1,0 +1,79 @@
+﻿@page "/Casual-Game-Mode"
+
+<div class="center-container">
+    <h3>Battle</h3>
+    <p>Press enter to submit your answer</p>
+    <p>Score: @score</p>
+    <p>@num1 x @num2 = ?</p>
+
+    <input type="number" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+
+    <button @onclick="ResetScore">Reset Score</button>
+
+    @if (showResult)
+    {
+        <p>@resultMessage</p>
+    }
+</div>
+
+<style>
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+</style>
+
+@code {
+    private int num1;
+    private int num2;
+    private int? userAnswer;
+    private bool showResult;
+    private string resultMessage;
+    private int score;
+
+    protected override void OnInitialized()
+    {
+        GenerateNumbers();
+    }
+
+    private void GenerateNumbers()
+    {
+        Random random = new Random();
+        num1 = random.Next(1, 12);
+        num2 = random.Next(1, 12);
+        userAnswer = null;
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            CheckAnswer();
+        }
+    }
+
+    private void CheckAnswer()
+    {
+        showResult = true;
+        if (userAnswer == num1 * num2)
+        {
+            resultMessage = "Yes";
+            GenerateNumbers();
+            score++;
+        }
+        else
+        {
+            resultMessage = "Skill issue (try again)";
+        }
+    }
+
+    private void ResetScore()
+    {
+        score = 0;
+    }
+}
