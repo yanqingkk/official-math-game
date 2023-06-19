@@ -1,5 +1,5 @@
 ﻿@page "/Main-map"
-
+@*
 <h3>Main-Map</h3>
 
 <div class="battle-one">
@@ -57,3 +57,126 @@
         NavigationManager.NavigateTo("/Casual-Game-Mode");
     }
 }
+
+*@
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+            .container img {
+                width: 100%;
+                height: auto;
+            }
+
+            .container .btn1 {
+                position: absolute;
+                top: 70%;
+                left: 20%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 12px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+            .container .btn2 {
+                position: absolute;
+                top: 40%;
+                left: 30%;
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+            .container .btn3 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+            .container .btn4 {
+                position: absolute;
+                top: 65%;
+                left: 70%;
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+            .container .btn5 {
+                position: absolute;
+                top: 35%;
+                left: 85%;
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+
+
+                .container .btn1:hover,
+                .container .btn2:hover,
+                .container .btn3:hover,
+                .container .btn4:hover,
+                .container .btn5:hover {
+                    background-color: black;
+                }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <img src="images/map.jpg" style="width:100%">
+        <button class="btn1">1</button>
+        <button class="btn2">2</button>
+        <button class="btn3">3</button>
+        <button class="btn4">4</button>
+        <button class="btn5">5</button>
+    </div>
+
+</body>
