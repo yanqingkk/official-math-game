@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "official-math-game", "official-math-game\official-math-game.csproj", "{7AA19B64-B9D1-468F-A5A5-75ED1EA91E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficialMathGame", "official-math-game\OfficialMathGame.csproj", "{7AA19B64-B9D1-468F-A5A5-75ED1EA91E36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
