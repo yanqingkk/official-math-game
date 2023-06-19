@@ -70,11 +70,17 @@
         }
 
             .container img {
+                position: fixed;
+                top: 0;
+                left: 0;
                 width: 100%;
-                height: auto;
+                height: 100%;
+                repeat: no-repeat;
+                size: cover;
+                z-index: -1;
             }
 
-            .container .btn1 {
+            .container .battle-one {
                 position: absolute;
                 top: 70%;
                 left: 20%;
@@ -92,7 +98,7 @@
                 height: 100px;
             }
 
-            .container .btn2 {
+            .container .battle-two {
                 position: absolute;
                 top: 40%;
                 left: 30%;
@@ -108,7 +114,7 @@
                 height: 100px;
             }
 
-            .container .btn3 {
+            .container .battle-three {
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -124,7 +130,7 @@
                 height: 100px;
             }
 
-            .container .btn4 {
+            .container .battle-four {
                 position: absolute;
                 top: 65%;
                 left: 70%;
@@ -140,10 +146,26 @@
                 height: 100px;
             }
 
-            .container .btn5 {
+            .container .boss-fight {
                 position: absolute;
                 top: 35%;
                 left: 85%;
+                background-color: #555;
+                color: white;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                border-radius: 50%;
+                width: 130px;
+                height: 130px;
+            }
+
+            .container .casual-game-mode {
+                position: absolute;
+                top: 70%;
+                left: 25%;
                 background-color: #555;
                 color: white;
                 font-size: 20px;
@@ -158,25 +180,59 @@
 
 
 
-                .container .btn1:hover,
-                .container .btn2:hover,
-                .container .btn3:hover,
-                .container .btn4:hover,
-                .container .btn5:hover {
+                .container .battle-one:hover,
+                .container .battle-two:hover,
+                .container .battle-three:hover,
+                .container .battle-four:hover,
+                .container .boss-fight:hover,
+                .container .casual-game-mode:hover
+                {
                     background-color: black;
                 }
     </style>
 </head>
 <body>
 
-
     <div class="container">
         <img src="images/map.jpg" style="width:100%">
-        <button class="btn1">1</button>
-        <button class="btn2">2</button>
-        <button class="btn3">3</button>
-        <button class="btn4">4</button>
-        <button class="btn5">5</button>
+        <button class="battle-one" @onclick="ToBattleOne">1</button>
+        <button class="battle-two" @onclick="ToBattleTwo">2</button>
+        <button class="battle-three" @onclick="ToBattleThree">3</button>
+        <button class="battle-four" @onclick="ToBattleFour">4</button>
+        <button class="boss-fight" @onclick="ToBossFight">5</button>
+        <button class="casual-game-mode" @onclick="CasualGameMode">Play Casual Game Mode</button>
     </div>
 
 </body>
+
+@code {
+    private void ToBattleOne()
+    {
+        NavigationManager.NavigateTo("/Battle-1");
+    }
+
+    private void ToBattleTwo()
+    {
+        NavigationManager.NavigateTo("/Battle-2");
+    }
+
+    private void ToBattleThree()
+    {
+        NavigationManager.NavigateTo("/Battle-3");
+    }
+
+    private void ToBattleFour()
+    {
+        NavigationManager.NavigateTo("/Battle-4");
+    }
+
+    private void ToBossFight()
+    {
+        NavigationManager.NavigateTo("/Story-Page");
+    }
+
+    private void CasualGameMode()
+    {
+        NavigationManager.NavigateTo("/Casual-Game-Mode");
+    }
+}
