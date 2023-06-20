@@ -1,0 +1,38 @@
+﻿@page "/Casual-Crossroad"
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+        .container .button {
+            font-family: Courier New, Courier, monospace;
+            color: white;
+            border-color: black;
+        }
+</style>
+
+<div class="container">
+
+    <button class="button" @onclick="ToAddition">Addition</button>
+
+    <button class="button" @onclick="ToMultiplication">Multiplication</button>
+
+</div>
+
+@code {
+    private void ToAddition()
+    {
+        NavigationManager.NavigateTo("/Casual-Game-Mode-Addition");
+    }
+
+    private void ToMultiplication()
+    {
+        NavigationManager.NavigateTo("/Casual-Game-Mode-Multiplication");
+    }
+}
