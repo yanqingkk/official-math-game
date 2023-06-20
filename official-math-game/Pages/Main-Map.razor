@@ -140,10 +140,10 @@
     <div class="container">
         <img src="images/map.jpg" style="width:100%">
         <button class="battle-one" @onclick="ToBattleOne">1</button>
-        <button class="battle-two" @onclick="ToBattleTwo">2</button>
-        <button class="battle-three" @onclick="ToBattleThree">3</button>
-        <button class="battle-four" @onclick="ToBattleFour">4</button>
-        <button class="boss-fight" @onclick="ToBossFight">5</button>
+        <button class="battle-two" @onclick="ToBattleTwoPre">2</button>
+        <button class="battle-three" @onclick="ToBattleThreePre">3</button>
+        <button class="battle-four" @onclick="ToBattleFourPre">4</button>
+        <button class="boss-fight" @onclick="ToBossFightPre">5</button>
         <button class="casual-game-mode" @onclick="CasualGameMode">Play Casual Game Mode</button>
     </div>
 
@@ -155,22 +155,22 @@
         NavigationManager.NavigateTo("/Battle-1");
     }
 
-    private void ToBattleTwo()
+    private void ToBattleTwoPre()
     {
-        NavigationManager.NavigateTo("/Battle-2");
+        NavigationManager.NavigateTo("/Battle-2-Pre");
     }
 
-    private void ToBattleThree()
+    private void ToBattleThreePre()
     {
-        NavigationManager.NavigateTo("/Battle-3");
+        NavigationManager.NavigateTo("/Battle-3-Pre");
     }
 
-    private void ToBattleFour()
+    private void ToBattleFourPre()
     {
-        NavigationManager.NavigateTo("/Battle-4");
+        NavigationManager.NavigateTo("/Battle-4-Pre");
     }
 
-    private void ToBossFight()
+    private void ToBossFightPre()
     {
         NavigationManager.NavigateTo("/Boss-Fight-Pre");
     }

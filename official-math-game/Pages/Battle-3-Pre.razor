@@ -1,0 +1,73 @@
+﻿@page "/Battle-3-Pre"
+
+<style>
+    html, body {
+        overflow: hidden;
+    }
+
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+        .main img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+    .skip-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+</style>
+
+<div class="main">
+    <div style="cursor: pointer" @onclick="NextImage">
+        <img src="@currentImage" alt="Image">
+    </div>
+    @if (currentIndex == images.Length - 1)
+    {
+        <div class="skip-button">
+            <button @onclick="SkipStory">Continue to game</button>
+        </div>
+    }
+</div>
+
+
+@code {
+    //Main story images cycling through
+    private string[] images = new string[]
+        {
+        "images/sp1.jpg",
+        "images/sp2.jpg",
+        "images/sp3.jpg",
+        "images/sp4.jpg",
+        "images/sp5.jpg",
+    };
+
+    private int currentIndex = 0;
+    private string currentImage => images[currentIndex];
+
+
+    private void NextImage()
+    {
+        currentIndex = (currentIndex + 1) % images.Length;
+
+        if (currentIndex == 0)
+        {
+            // Reached the end of the array, stop further switching
+            currentIndex = images.Length - 1;
+        }
+    }
+
+    //Skip to game button
+    private void SkipStory()
+    {
+        NavigationManager.NavigateTo("/Battle-3");
+    }
+
+}
