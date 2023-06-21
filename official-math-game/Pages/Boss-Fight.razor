@@ -1,7 +1,235 @@
 ﻿@page "/Boss-Fight"
 
-boss fight page
+<div class="center-container">
+    <h3>Battle</h3>
+    <p>Press enter to submit your answer</p>
+
+    <!--display player and boss health-->
+    <p>your health: @mainChp</p>
+    <p>boss health: @enemyOnehp</p>
+
+    <!--the question box-->
+    <div class="question-box">
+        <p class="question-text">@question</p>
+    </div>
+
+    <!--the text input box and the on enter key pressed-->
+    <input type="number" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+
+    <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+    @if (showResult)
+    {
+        <p>@resultMessage</p>
+    }
+</div>
+
+<!--the css styling bit-->
+<style>
+    html, body {
+        overflow: hidden;
+    }
+
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+
+    .question-box {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        margin-left: 500px;
+        margin-right: 500px;
+    }
+
+    .question-text {
+        white-space: pre-wrap;
+    }
+
+    input[type="number"] {
+        margin: 0 auto;
+    }
+</style>
 
 @code {
+    //variables for both storing the uh numbers and the inputs from userrrr
+    private int num;
+    private int? userAnswer;
+
+    //for managing the visability of the resultsssss
+    private bool showResult;
+    private string resultMessage;
+
+    private string question;
+
+    //starting player and boss health
+    public int mainChp = 1;
+    public int enemyOnehp = 5;
+
+    //what the thing first start this should runnn
+    protected override void OnInitialized()
+    {
+        GenerateNumbers();
+    }
+
+    //number gen and clear past user input
+    private HashSet<int> generatedNumbers = new HashSet<int>();
+
+    private void GenerateNumbers()
+    {
+        Random random = new Random();
+        int randomNumber;
+
+        do
+        {
+            randomNumber = random.Next(1, 11);
+        }
+        while (generatedNumbers.Contains(randomNumber));
+
+        generatedNumbers.Add(randomNumber);
+
+        switch (randomNumber)
+        {
+            case 1:
+                question = "This week at my lemonade stand I sold $29 worth of lemonade, but I had spent $34 on lemons and $14 on sugar. What was my total loss for the week?(no units needed)";
+                break;
+            case 2:
+                question = "Sally thinks of a number, multiplies it by 2, adds 2, divides by 2 and then subtracts 2. Her answer is 2. What was her original number?";
+                break;
+            case 3:
+                question = "Five different whole numbers, chosen from the numbers from 1 to 30, add up to 30. What is the greatest possible value of the largest of these numbers?";
+                break;
+            case 4:
+                question = " Leo is waiting in line at school, There are 4 students ahead of him and twice as many behind him, How many students are in the line?";
+                break;
+            case 5:
+                question = " There are 14 pieces of fruit in a bowl. There are twice as many nectarines as pears, and half as many nectarines as apples. There are no other types of fruit. How many apples are there?";
+                break;
+            case 6:
+                question = "A rectangle has been made by joining two squares together, each equare as an area of 25cm^3 What is the perimeter of the recatangle?(no units needed)";
+                break;
+            case 7:
+                question = "A cube is made up of 1 cm × 1 cm × 1 cm blocks and measures 12 cm × 12 cm × 12 cm. Sharyn is using the same set of blocks to make a set of stairs. She started, making a set of stairs 4 blocks high, 4 blocks from front to back and 5 blocks wide. Her finished set of stairs will use all the blocks and be 8 blocks high and 8 blocks from front to back. How many blocks wide will they be?";
+                break;
+            case 8:
+                question = "It is 10am now. What time will it be in 2021 hours time? remember to include am or pm";
+                break;
+            case 9:
+                question = " I have a jug containing 100ml of liquid, which is half vinegar and half olive oil. How much vinegar must I add to make a mixture which is one-third olive oil?(no units needed)";
+                break;
+            case 10:
+                question = "Hayden saved $1420 and Mitchell saved $505. After they both spent an equal amount of money, Hayden has 4 times as much money as Mitchel. In dollars, how much did each of them spend?(no units needed)";
+                break;
+
+        }
+
+        userAnswer = null;
+    }
+
+
+    //presss enterrrr
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            CheckAnswer();
+        }
+    }
+
+    private void YouWin()
+    {
+        NavigationManager.NavigateTo("/You-Win-1");
+    }
+
+    private void YouLose()
+    {
+        NavigationManager.NavigateTo("/You-Lose");
+    }
+
+
+    private void CheckAnswer()
+    {
+        bool isCorrect = CheckAnswer(userAnswer.ToString(), generatedNumbers.Last());
+
+        if (isCorrect)
+        {
+            resultMessage = "yes";
+            GenerateNumbers();
+            enemyOnehp = Math.Max(enemyOnehp - 1, 0);
+            // Update the game state accordingly
+            if (enemyOnehp == 0)
+            {
+                //you win screen
+                YouWin();
+            }
+        }
+        else
+        {
+            resultMessage = "skill issue(try again)";
+            // Update the game state accordingly
+            mainChp = Math.Max(mainChp - 1, 0); //this bit shows that the mc hp cannot be below 0 :) also after this call the method for likr, removing one of the blocks of hp
+
+            if (mainChp == 0)
+            {
+                //you lose screen
+                YouLose();
+            }
+        }
+
+        showResult = true;
+    }
+
+    private bool CheckAnswer(string userAnswer, int questionNumber)
+    {
+        bool isCorrect = false;
+
+        switch (questionNumber)
+        {
+            case 1:
+                isCorrect = userAnswer == "19";
+                break;
+            case 2:
+                isCorrect = userAnswer == "3";
+                break;
+            case 3:
+                isCorrect = userAnswer == "20";
+                break;
+            case 4:
+                isCorrect = userAnswer == "13";
+                break;
+            case 5:
+                isCorrect = userAnswer == "2";
+                break;
+            case 6:
+                isCorrect = userAnswer == "30";
+                break;
+            case 7:
+                isCorrect = userAnswer == "48";
+                break;
+            case 8:
+                isCorrect = userAnswer == "8pm";
+                break;
+            case 9:
+                isCorrect = userAnswer == "50";
+                break;
+            case 10:
+                isCorrect = userAnswer == "200";
+                break;
+        }
+
+        return isCorrect;
+    }
+
+
+
+
 
 }
+
+             
