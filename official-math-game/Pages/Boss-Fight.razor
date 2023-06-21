@@ -14,7 +14,8 @@
     </div>
 
     <!--the text input box and the on enter key pressed-->
-    <input type="number" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+    <input type="text" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+
 
     <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
     @if (showResult)
@@ -118,7 +119,7 @@
                 question = "A cube is made up of 1 cm × 1 cm × 1 cm blocks and measures 12 cm × 12 cm × 12 cm. Sharyn is using the same set of blocks to make a set of stairs. She started, making a set of stairs 4 blocks high, 4 blocks from front to back and 5 blocks wide. Her finished set of stairs will use all the blocks and be 8 blocks high and 8 blocks from front to back. How many blocks wide will they be?";
                 break;
             case 8:
-                question = "It is 10am now. What time will it be in 2021 hours time? remember to include am or pm";
+                question = "It is 10am now. What time will it be in 2021 hours time? (do not need to include am or pm, answer in 12 hour time)";
                 break;
             case 9:
                 question = " I have a jug containing 100ml of liquid, which is half vinegar and half olive oil. How much vinegar must I add to make a mixture which is one-third olive oil?(no units needed)";
@@ -213,7 +214,7 @@
                 isCorrect = userAnswer == "48";
                 break;
             case 8:
-                isCorrect = userAnswer == "8pm";
+                isCorrect = userAnswer == "8";
                 break;
             case 9:
                 isCorrect = userAnswer == "50";
