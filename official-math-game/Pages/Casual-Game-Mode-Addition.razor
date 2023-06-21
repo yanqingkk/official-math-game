@@ -52,7 +52,7 @@
     protected override async Task OnInitializedAsync()
     {
         GenerateNumbers();
-        additionScore = await localStorage.GetItemAsync<int>("score");
+        additionScore = await localStorage.GetItemAsync<int>("score1");
     }
 
     private void GenerateNumbers()
@@ -79,7 +79,7 @@
             resultMessage = "Yes";
             GenerateNumbers();
             additionScore++;
-            await localStorage.SetItemAsync("score", additionScore);
+            await localStorage.SetItemAsync("score1", additionScore);
         }
         else
         {
@@ -90,7 +90,7 @@
     private async Task ResetScore()
     {
         additionScore = 0;
-        await localStorage.SetItemAsync("score", 0);
+        await localStorage.SetItemAsync("score1", 0);
     }
 
     private void ToMainMap()
