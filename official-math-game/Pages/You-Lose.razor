@@ -1,30 +1,20 @@
 ﻿@page "/You-Lose"
 
 <style>
-    .you-win {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-        font-family: Courier New, Courier, monospace;
+    .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/opening-screen.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        overflow: hidden;
     }
 </style>
 
-<h1 class="you-win">
-    YOU DIED!
-    
-    :(
-</h1>
-
-<div class="button">
-    <button class="click-to-start-button" @onclick="ToMainMap">Return to main map</button>
-</div>
-
-@code {
-    private void ToMainMap()
-    {
-        NavigationManager.NavigateTo("/Main-Map");
-    }
-}
+<a href="/Main-Map">
+    <div class="background-image"></div>
+</a>
