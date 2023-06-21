@@ -98,7 +98,7 @@
 
             if (enemyOnehp == 0)
             {
-                //you lose screen
+                
                 YouWin();
 
                 var currentLevel = await localStorage.GetItemAsync<int>("level");
@@ -116,7 +116,7 @@
 
             if (mainChp == 0)
             {
-                //you win screen
+                
                 YouLose();
             }
         }

@@ -1,4 +1,5 @@
 ﻿@page "/Boss-Fight"
+@inject ILocalStorageService localStorage
 
 <div class="center-container">
     <h3>Battle</h3>
@@ -135,11 +136,11 @@
 
 
     //presss enterrrr
-    private void HandleKeyDown(KeyboardEventArgs e)
+    private async Task HandleKeyDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {
-            CheckAnswer();
+            await CheckAnswer();
         }
     }
 
@@ -154,7 +155,7 @@
     }
 
 
-    private void CheckAnswer()
+    private async Task CheckAnswer()
     {
         bool isCorrect = CheckAnswer(userAnswer.ToString(), generatedNumbers.Last());
 
@@ -168,6 +169,11 @@
             {
                 //you win screen
                 YouWin();
+                var currentLevel = await localStorage.GetItemAsync<int>("level");
+                if (currentLevel <= 4)
+                {
+                    await localStorage.SetItemAsync("level", GameLevel.Level5);
+                }
             }
         }
         else
