@@ -2,22 +2,20 @@
 @inject ILocalStorageService localStorage
 
 <div class="center-container">
-    <h3>Casual game mode(multiplication)</h3>
+    <h1>CASUAL GAME MODE</h1>
+    <h4>[Multiplication]</h4>
     <p>Press enter to submit your answer</p>
     <p>Score: @multiplicationScore</p>
     <p class="question">@num1 x @num2 = ?</p>
 
     <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
 
-    <button @onclick="ResetScore">Reset Score</button>
-
     <p>@resultMessage</p>
-   
-</div>
 
-<div class="main-map-button">
-
-    <button class="main-map" @onclick="ToMainMap">Return to main map</button>
+    <div class="buttons">
+        <button class="reset-button" @onclick="ResetScore">Reset Score</button>
+        <button class="main-map" @onclick="ToMainMap">Return to main map</button>
+    </div>
 
 </div>
 
@@ -31,21 +29,57 @@
         height: 100vh;
         text-align: center;
         font-family: Courier New, Courier, monospace;
-    }
-    .main-map-button {
-        font-family: Courier New, Courier, monospace;
+        margin: -10px;
+        background-color: #273248;
+        color: #FFA364
     }
 
-    .question {
-        font-size: 30px;
-    }
+        .center-container .h1 {
+            font-weight: bold;
+        }
+
+        .center-container .h4 {
+            padding-top: 20px;
+        }
+
+        .center-container .question {
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        .center-container .reset-button {
+            padding: 10px;
+            justify-content: center;
+            border: 1px solid #FFA364;
+            font-family: Courier New, Courier, monospace;
+            background-color: #273248;
+            font-weight: bold;
+            color: #FFA364;
+        }
+
+        .center-container .main-map {
+            padding: 10px;
+            justify-content: center;
+            border: 1px solid #FFA364;
+            font-family: Courier New, Courier, monospace;
+            background-color: #273248;
+            font-weight: bold;
+            color: #FFA364;
+        }
 
     .user-input {
+        background-color: #FFA364;
+        font-family: Courier New, Courier, monospace;
+        color: #273248;
+        justify-content: center;
         font-size: 24px;
         padding: 10px;
         width: 200px;
+        font-weight: bold;
+        border: none;
+        outline: none;
+        -moz-appearance: textfield;
     }
-
 </style>
 
 @code {
