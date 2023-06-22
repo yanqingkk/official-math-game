@@ -1,37 +1,61 @@
 ﻿@page "/Battle-3"
 @inject ILocalStorageService localStorage
 
-<div class="center-container">
-    <h3>Battle</h3>
-    <p>Press enter to submit your answer</p>
-
-    <!--display player and boss health-->
-    <p>your health: @mainChp</p>
+<div class="topcenter-container">
+    <h3>BATTLE</h3>
     <p>boss health: @enemyOnehp</p>
+    <p>Press enter to submit your answer</p>
+    <p class="question">@num1 x @num2 = ?</p>
+</div>
 
-    <!--the question-->
-    <p>@num1 x @num2 = ?</p>
-
+<div class="bottomcenter-container">
+    <p>your health: @mainChp</p>
     <!--the text input box and the on enter key pressed-->
-    <input type="number" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+    <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
 
     <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-    @if (showResult)
-    {
-        <p>@resultMessage</p>
-    }
+    <p>@resultMessage</p>
+
 </div>
 
 <!--the css styling bit lol-->
 <style>
-    .center-container {
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .topcenter-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        height: 50%;
         text-align: center;
         font-family: Courier New, Courier, monospace;
+    }
+
+    .bottomcenter-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+    .question {
+        font-size: 30px;
+    }
+
+    .user-input {
+        font-size: 24px; 
+        padding: 10px; 
+        width: 200px; 
     }
 </style>
 
@@ -41,9 +65,9 @@
     private int num1;
     private int num2;
     private int? userAnswer;
+    private const string Level = "level";
 
     //for managing the visability of the resultsssss
-    private bool showResult;
     private string resultMessage;
 
     //starting player and boss health
@@ -54,6 +78,7 @@
     protected override void OnInitialized()
     {
         GenerateNumbers();
+        resultMessage = "goodluck~";
     }
 
     //number gen and clear past user input
@@ -87,7 +112,6 @@
     //check the userinput and updates whatever is diaplayed
     private async Task CheckAnswer()
     {
-        showResult = true;
         if (userAnswer == num1 * num2)
         {
             //correct answer wooo, enemy health -1
@@ -99,10 +123,10 @@
             {
              
                 YouWin();
-                var currentLevel = await localStorage.GetItemAsync<int>("level");
+                var currentLevel = await localStorage.GetItemAsync<int>(Level);
                 if (currentLevel <= 2)
                 {
-                    await localStorage.SetItemAsync("level", GameLevel.Level3);
+                    await localStorage.SetItemAsync(Level, GameLevel.Level3);
                 }
             }
         }
