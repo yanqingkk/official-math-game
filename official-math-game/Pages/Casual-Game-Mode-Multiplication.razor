@@ -2,19 +2,17 @@
 @inject ILocalStorageService localStorage
 
 <div class="center-container">
-    <h3>Battle</h3>
+    <h3>Casual game mode(multiplication)</h3>
     <p>Press enter to submit your answer</p>
     <p>Score: @multiplicationScore</p>
-    <p>@num1 x @num2 = ?</p>
+    <p class="question">@num1 x @num2 = ?</p>
 
-    <input type="number" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+    <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
 
     <button @onclick="ResetScore">Reset Score</button>
 
-    @if (showResult)
-    {
-        <p>@resultMessage</p>
-    }
+    <p>@resultMessage</p>
+   
 </div>
 
 <div class="main-map-button">
@@ -38,20 +36,30 @@
         font-family: Courier New, Courier, monospace;
     }
 
+    .question {
+        font-size: 30px;
+    }
+
+    .user-input {
+        font-size: 24px;
+        padding: 10px;
+        width: 200px;
+    }
+
 </style>
 
 @code {
     private int num1;
     private int num2;
     private int? userAnswer;
-    private bool showResult;
-    private string resultMessage;
+    private string? resultMessage;
     private int multiplicationScore;
 
     protected override async Task OnInitializedAsync()
     {
         GenerateNumbers();
         multiplicationScore = await localStorage.GetItemAsync<int>("score");
+        resultMessage = "goodluck~";
     }
 
     private void GenerateNumbers()
@@ -72,7 +80,7 @@
 
     private async Task CheckAnswer()
     {
-        showResult = true;
+
         if (userAnswer == num1 * num2)
         {
             resultMessage = "Yes";
@@ -83,6 +91,11 @@
         else
         {
             resultMessage = "Skill issue (try again)";
+            multiplicationScore--;
+            if (multiplicationScore<-5)
+            {
+                resultMessage = "bruh, you suck";
+            }
         }
     }
 

@@ -1,20 +1,54 @@
-﻿@page "/Play Again"
+﻿@page "/Play-Again"
+@inject ILocalStorageService localStorage
+@inject NavigationManager NavigationManager
 
 <style>
+    html, body {
+        overflow: hidden;
+    }
     .background-image {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url("images/opening-screen.png");
+        background-image: url("images/finish.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         z-index: -1;
         overflow: hidden;
     }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px; /* Subtracting 20px for top and bottom margin */
+        margin: 800px; /* Margin around the container */
+    }
+
 </style>
 
-<a href="/Index">
-    <div class="background-image"></div>
-</a>
+<div class="background-image" @onclick="UpdateLevel"></div>
+<div class="container">
+    <button class="button" @onclick="Continue">Return to Main Map</button>
+</div>
+
+@code {
+    private async Task UpdateLevel()
+    {
+        await localStorage.SetItemAsync("level", 0);
+        NavigationManager.NavigateTo("/");
+    }
+    private void Continue()
+    {
+        NavigationManager.NavigateTo("/Main-Map");
+    }
+}
