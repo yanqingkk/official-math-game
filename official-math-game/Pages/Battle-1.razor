@@ -1,9 +1,10 @@
 ﻿@page "/Battle-1"
 @inject ILocalStorageService localStorage
 
-<div class="@flashClassGreen">
+<div class="@flashClassGreen"> 
 
     <div class="@flashClassRed">
+
         <div class="topcenter-container">
             <h3>BATTLE</h3>
             <p>boss health: @enemyOnehp</p>
@@ -20,6 +21,7 @@
             <p>@resultMessage</p>
            
         </div>
+
     </div>
 
 </div>
@@ -68,6 +70,7 @@
 
 @code {
     //variables for both storing the uh numbers and the inputs from userrrr
+    //define bool variables for flashing animation
     private int num1;
     private int num2;
     private int? userAnswer;
@@ -109,6 +112,7 @@
         }
     }
 
+    //define flash screen green animation sequence
     private async Task FlashScreenGreen()
     {
         isFlashingGreen = true;
@@ -116,6 +120,7 @@
         isFlashingGreen = false;
     }
 
+    //define flash screen red animation sequence
     private async Task FlashScreenRed()
     {
         isFlashingRed = true;
@@ -139,7 +144,7 @@
         if (userAnswer == num1 + num2)
         {
             //correct answer wooo, enemy health -1
-            await FlashScreenGreen();
+            await FlashScreenGreen(); //flash screen green if correct answer
             resultMessage = "Yes";
             GenerateNumbers();
             enemyOnehp = Math.Max(enemyOnehp - 1, 0); //this bit shows that the boss hp cannot be below 0 :)
@@ -159,7 +164,7 @@
         else
         {
             //wrong answer oh no, player health -1
-            await FlashScreenRed();
+            await FlashScreenRed(); //flash screen red if wrong answer
             resultMessage = "Skill issue(try again)";
             mainChp = Math.Max(mainChp - 1, 0); //this bit shows that the mc hp cannot be below 0 :) also after this call the method for likr, removing one of the blocks of hp
 
