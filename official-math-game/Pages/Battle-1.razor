@@ -1,21 +1,23 @@
 ﻿@page "/Battle-1"
 @inject ILocalStorageService localStorage
 
-<div class="topcenter-container">
-    <h3>BATTLE</h3>
-    <p>boss health: @enemyOnehp</p>
-    <p>Press enter to submit your answer</p>
-    <p class="question">@num1 + @num2 = ?</p>
-</div>
- 
-<div class="bottomcenter-container">
-    <p>your health: @mainChp</p>
-    <!--the text input box and the on enter key pressed-->
-    <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-
-    <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-    <p>@resultMessage</p>
-   
+<div class="@flashClass">
+    <div class="topcenter-container">
+        <h3>BATTLE</h3>
+        <p>boss health: @enemyOnehp</p>
+        <p>Press enter to submit your answer</p>
+        <p class="question">@num1 + @num2 = ?</p>
+    </div>
+     
+    <div class="bottomcenter-container">
+        <p>your health: @mainChp</p>
+        <!--the text input box and the on enter key pressed-->
+        <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+    
+        <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+        <p>@resultMessage</p>
+       
+    </div>
 </div>
 
 <!--the css styling bit lol-->
@@ -67,6 +69,7 @@
     private int? userAnswer;
     private bool isFlashing = false;
     private const string Level = "level";
+    private string flashClass => isFlashing ? "flash" : "";
 
     //for managing the visability of the resultsssss
     private string? resultMessage;
