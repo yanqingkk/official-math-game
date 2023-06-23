@@ -21,43 +21,43 @@
 <!--the css styling bit lol-->
 <style>
     html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
 
-.topcenter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 50%;
-    text-align: center;
-    font-family: Courier New, Courier, monospace;
-}
+    .topcenter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50%;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
 
-.bottomcenter-container {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 35px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: center;
-    font-family: Courier New, Courier, monospace;
-}
+    .bottomcenter-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
 
-.question {
-    font-size: 30px;
-}
+    .question {
+        font-size: 30px;
+    }
 
-.user-input {
-    font-size: 24px;
-    padding: 10px;
-    width: 200px;
-}
+    .user-input {
+        font-size: 24px;
+        padding: 10px;
+        width: 200px;
+    }
 </style>
 
 @code {
@@ -65,6 +65,7 @@
     private int num1;
     private int num2;
     private int? userAnswer;
+    private bool isFlashing = false;
     private const string Level = "level";
 
     //for managing the visability of the resultsssss
@@ -99,6 +100,13 @@
         }
     }
 
+    private async Task FlashScreen()
+    {
+        isFlashing = true;
+        await Task.Delay(500);
+        isFlashing = false;
+    }
+
     private void YouWin()
     {
         NavigationManager.NavigateTo("/You-Win-1");
@@ -115,6 +123,7 @@
         if (userAnswer == num1 + num2)
         {
             //correct answer wooo, enemy health -1
+            await FlashScreen();
             resultMessage = "Yes";
             GenerateNumbers();
             enemyOnehp = Math.Max(enemyOnehp - 1, 0); //this bit shows that the boss hp cannot be below 0 :)
