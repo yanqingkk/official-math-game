@@ -1,23 +1,27 @@
 ﻿@page "/Battle-1"
 @inject ILocalStorageService localStorage
 
-<div class="@flashClass">
-    <div class="topcenter-container">
-        <h3>BATTLE</h3>
-        <p>boss health: @enemyOnehp</p>
-        <p>Press enter to submit your answer</p>
-        <p class="question">@num1 + @num2 = ?</p>
+<div class="@flashClassGreen">
+
+    <div class="@flashClassRed">
+        <div class="topcenter-container">
+            <h3>BATTLE</h3>
+            <p>boss health: @enemyOnehp</p>
+            <p>Press enter to submit your answer</p>
+            <p class="question">@num1 + @num2 = ?</p>
+        </div>
+         
+        <div class="bottomcenter-container">
+            <p>your health: @mainChp</p>
+            <!--the text input box and the on enter key pressed-->
+            <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+        
+            <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+            <p>@resultMessage</p>
+           
+        </div>
     </div>
-     
-    <div class="bottomcenter-container">
-        <p>your health: @mainChp</p>
-        <!--the text input box and the on enter key pressed-->
-        <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-    
-        <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-        <p>@resultMessage</p>
-       
-    </div>
+
 </div>
 
 <!--the css styling bit lol-->
@@ -67,9 +71,11 @@
     private int num1;
     private int num2;
     private int? userAnswer;
-    private bool isFlashing = false;
+    private bool isFlashingGreen = false;
+    private bool isFlashingRed = false;
     private const string Level = "level";
-    private string flashClass => isFlashing ? "flash" : "";
+    private string flashClassGreen => isFlashingGreen ? "flashgreen" : "";
+    private string flashClassRed => isFlashingRed ? "flashred" : "";
 
     //for managing the visability of the resultsssss
     private string? resultMessage;
@@ -103,11 +109,18 @@
         }
     }
 
-    private async Task FlashScreen()
+    private async Task FlashScreenGreen()
     {
-        isFlashing = true;
+        isFlashingGreen = true;
         await Task.Delay(500);
-        isFlashing = false;
+        isFlashingGreen = false;
+    }
+
+    private async Task FlashScreenRed()
+    {
+        isFlashingRed = true;
+        await Task.Delay(500);
+        isFlashingRed = false;
     }
 
     private void YouWin()
@@ -126,14 +139,14 @@
         if (userAnswer == num1 + num2)
         {
             //correct answer wooo, enemy health -1
-            await FlashScreen();
+            await FlashScreenGreen();
             resultMessage = "Yes";
             GenerateNumbers();
             enemyOnehp = Math.Max(enemyOnehp - 1, 0); //this bit shows that the boss hp cannot be below 0 :)
 
             if (enemyOnehp == 0)
             {
-               
+
                 YouWin();
 
                 var currentLevel = await localStorage.GetItemAsync<int>(Level);
@@ -146,6 +159,7 @@
         else
         {
             //wrong answer oh no, player health -1
+            await FlashScreenRed();
             resultMessage = "Skill issue(try again)";
             mainChp = Math.Max(mainChp - 1, 0); //this bit shows that the mc hp cannot be below 0 :) also after this call the method for likr, removing one of the blocks of hp
 
