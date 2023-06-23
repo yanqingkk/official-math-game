@@ -30,3 +30,39 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.flashgreen {
+    animation: flash-animation-green 1s;
+}
+
+@keyframes flash-animation-green {
+    0% {
+        background-color: inherit;
+    }
+
+    50% {
+        background-color: green;
+    }
+
+    100% {
+        background-color: inherit;
+    }
+}
+
+.flashred {
+    animation: flash-animation-red 1s;
+}
+
+@keyframes flash-animation-red {
+    0% {
+        background-color: inherit;
+    }
+
+    50% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: inherit;
+    }
+}
