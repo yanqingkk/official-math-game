@@ -1,7 +1,8 @@
 ﻿@page "/Battle-1"
 @inject ILocalStorageService localStorage
 
-<div class="@flashClassGreen"> 
+
+<div class="@flashClassGreen">
 
     <div class="@flashClassRed">
 
@@ -11,15 +12,15 @@
             <p>Press enter to submit your answer</p>
             <p class="question">@num1 + @num2 = ?</p>
         </div>
-         
+
         <div class="bottomcenter-container">
             <p>your health: @mainChp</p>
             <!--the text input box and the on enter key pressed-->
             <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-        
+
             <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
             <p>@resultMessage</p>
-           
+
         </div>
 
     </div>
@@ -69,7 +70,8 @@
 </style>
 
 @code {
-    //variables for both storing the uh numbers and the inputs from userrrr
+
+     //variables for both storing the uh numbers and the inputs from userrrr
     //define bool variables for flashing animation
     private int num1;
     private int num2;
@@ -112,7 +114,7 @@
         }
     }
 
-    //define flash screen green animation sequence
+     //define flash screen green animation sequence
     private async Task FlashScreenGreen()
     {
         isFlashingGreen = true;
@@ -141,6 +143,7 @@
     //check the userinput and updates whatever is diaplayed
     private async Task CheckAnswer()
     {
+       
         if (userAnswer == num1 + num2)
         {
             //correct answer wooo, enemy health -1
@@ -151,7 +154,7 @@
 
             if (enemyOnehp == 0)
             {
-
+               
                 YouWin();
 
                 var currentLevel = await localStorage.GetItemAsync<int>(Level);
