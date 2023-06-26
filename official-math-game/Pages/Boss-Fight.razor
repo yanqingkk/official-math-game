@@ -5,25 +5,25 @@
 
     <div class="@flashClassRed">
 
-        <div class="topcenter-container">
-            <h3>BATTLE</h3>
-            <p>boss health: @enemyOnehp</p>
-            <p>Press enter to submit your answer</p>
-        
-            <!--the question box-->
-            <div class="question-box">
-                <p class="question-text">@question</p>
+        <div class="question-box">
+          
+            <div class="topcenter-container">
+                <p class="question">@question</p>
             </div>
+
         </div>
         
-        <div class="bottomcenter-container">
-            <p>your health: @mainChp</p>
-            <!--the text input box and the on enter key pressed-->
-            <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-        
-            <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-            <p>@resultMessage</p>
-        
+        <div class="answer-box">
+
+            <div class="bottomcenter-container">
+                <!--the text input box and the on enter key pressed-->
+                <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+
+                <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+                <p class="result-message">@resultMessage</p>
+
+            </div>
+
         </div>
 
     </div>
@@ -32,15 +32,21 @@
 
 <!--the css styling bit lol-->
 <style>
+
     html, body {
         margin: 0;
         padding: 0;
         height: 100%;
     }
 
-    .topcenter-container {
-        display: flex;
-        flex-direction: column;
+    .question-box {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 500px;
+        margin-right: 500px;
         align-items: center;
         justify-content: center;
         height: 50%;
@@ -48,38 +54,45 @@
         font-family: Courier New, Courier, monospace;
     }
 
-    .bottomcenter-container {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 35px;
-        display: flex;
-        flex-direction: column;
+        .question-box .topcenter-container .question {
+            font-weight: bold;
+            white-space: pre-wrap;
+        }
+
+    .answer-box {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 550px;
+        margin-bottom: 20px;
+        margin-left: 500px;
+        margin-right: 500px;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
+        height: 50%;
         text-align: center;
         font-family: Courier New, Courier, monospace;
     }
 
-    .question-box {
-        background-color: #f2f2f2;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
-    }
-
-        .question-box .question-text {
-            white-space: pre-wrap;
-            font-size: 15px;
+        .answer-box .bottomcenter-container {
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            text-align: center;
+            font-family: Courier New, Courier, monospace;
         }
 
+            .answer-box .bottomcenter-container .result-message {
+                    white-space: pre-wrap;
+                    font-size: 15px;
+                }
+
     .user-input {
-        font-size: 24px;
+        font-size: 30px;
         padding: 10px;
         width: 200px;
     }
+
 </style>
 
 @code {
