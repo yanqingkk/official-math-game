@@ -37,8 +37,10 @@
 </style>
 
 <div class="background-image" @onclick="UpdateLevel"></div>
+
 <div class="container">
     <button class="button" @onclick="Continue">Return to Main Map</button>
+    <button class="button" @onclick="CGGallery">View CGs</button>
 </div>
 
 @code {
@@ -50,5 +52,10 @@
     private void Continue()
     {
         NavigationManager.NavigateTo("/Main-Map");
+    }
+
+    private void CGGallery()
+    {
+        NavigationManager.NavigateTo("/CG-Gallery");
     }
 }
