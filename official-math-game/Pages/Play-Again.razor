@@ -28,10 +28,11 @@
 
     .container {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         height: 150px; /* Subtracting 20px for top and bottom margin */
-        margin: 800px; /* Margin around the container */
+        margin: 700px; /* Margin around the container */
     }
 
     button {
@@ -64,15 +65,22 @@
         cursor: pointer;
         padding: .1em .6em;
         border: none;
+        width: 200px;
+        height: 60px;
         background-color: #273248;
     }
 
 </style>
 
-<div class="background-image" @onclick="UpdateLevel"></div>
+<div class="background-image"></div>
 
 <div class="container">
+    <div>
+    <button style="--c:#FFA364" @onclick="UpdateLevel">Play Again</button>
+    </div>
+    <div>
     <button style="--c:#FFA364" class="main-map" @onclick="Continue">Return to Main Map</button>
+    </div>
 </div>
 
 @code {
