@@ -23,6 +23,40 @@
         top: 10px;
         right: 10px;
     }
+
+    button {
+        --c: #FFA364; /* the color*/
+
+        box-shadow: 0 0 0 .1em inset var(--c);
+        --_g: linear-gradient(var(--c) 0 0) no-repeat;
+        background: var(--_g) calc(var(--_p,0%) - 100%) 0%, var(--_g) calc(200% - var(--_p,0%)) 0%, var(--_g) calc(var(--_p,0%) - 100%) 100%, var(--_g) calc(200% - var(--_p,0%)) 100%;
+        background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+        outline-offset: .1em;
+        transition: background-size .4s, background-position 0s .4s;
+        color: #FFA364;
+    }
+
+        button:hover {
+            --_p: 100%;
+            transition: background-position .4s, background-size 0s;
+            color: white;
+        }
+
+        button:active {
+            box-shadow: 0 0 9e9q inset #FFA364;
+            background-color: var(--c);
+            color: #FFA364;
+        }
+
+    button {
+        font-family: Courier New, Courier, monospace;
+        font-size: 17px;
+        cursor: pointer;
+        padding: .1em .6em;
+        border: none;
+        background-color: #273248;
+    }
+
 </style>
 
 <div class="main">
@@ -32,7 +66,7 @@
     @if (currentIndex == images.Length - 1)
     {
         <div class="skip-button">
-            <button @onclick="SkipStory">Back To Main Map</button>
+            <button style="--c:#FFA364" class="skip-story" @onclick="SkipStory">Back To Main Map</button>
         </div>
     }
 </div>

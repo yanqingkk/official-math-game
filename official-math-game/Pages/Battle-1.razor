@@ -5,22 +5,26 @@
 
     <div class="@flashClassRed">
 
-        <div class="question-box">
+        <div class="main">
 
-            <div class="topcenter-container">
-                <p class="question">@num1 + @num2 = ?</p>
+            <div class="question-box">
+
+                <div class="topcenter-container">
+                    <p class="question">@num1 + @num2 = ?</p>
+                </div>
+
             </div>
 
-        </div>
+            <div class="answer-box">
 
-        <div class="answer-box">
+                <div class="bottomcenter-container">
+                    <!--the text input box and the on enter key pressed-->
+                    <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
 
-            <div class="bottomcenter-container">
-                <!--the text input box and the on enter key pressed-->
-                <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+                    <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+                    <p class="result-message">@resultMessage</p>
 
-                <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-                <p class="result-message">@resultMessage</p>
+                </div>
 
             </div>
 
@@ -37,6 +41,10 @@
         margin: 0;
         padding: 0;
         height: 100%;
+    }
+
+    .main {
+        background-image: url("images/enemy1.png");
     }
 
     .question-box {
