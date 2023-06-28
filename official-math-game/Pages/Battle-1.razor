@@ -1,9 +1,9 @@
 ﻿@page "/Battle-1"
 @inject ILocalStorageService localStorage
 
-<div class="@flashClassGreen">
+<div class="@flashClass">
 
-    <div class="@flashClassRed">
+    <div class="main-wrapper">
 
         <div class="question-box">
 
@@ -36,7 +36,54 @@
     html, body {
         margin: 0;
         padding: 0;
+    }
+
+    .main-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         height: 100%;
+    }
+
+    .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+    }
+
+    .background-image-red {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1-red.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+       
+    }
+
+    .background-image-green {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1-green.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+        
     }
 
     .question-box {
@@ -45,37 +92,46 @@
         border-radius: 10px;
         margin-top: 20px;
         margin-bottom: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
+        margin-left: 8px;
+        margin-right: 8px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        height: 50%;
+        height: 120px;
         text-align: center;
         font-family: Courier New, Courier, monospace;
     }
 
-        .question-box .topcenter-container {
-            align-items: center;
-            justify-content: center;
-            height: 50%;
-            text-align: center;
-            font-family: Courier New, Courier, monospace;
-        }
+    .question-box .topcenter-container {
+        align-items: center;
+        justify-content: center;
+ 
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
             
-            .question-box .topcenter-container .question {
-                font-weight: bold;
-                white-space: pre-wrap;
-                font-size: 45px;
-            }
+    .question-box .topcenter-container .question {
+        font-weight: bold;
+        white-space: pre-wrap;
+        font-size: 45px;
+    }
 
     .answer-box {
         background-color: #f2f2f2;
         padding: 20px;
         border-radius: 10px;
-        margin-top: 550px;
         margin-bottom: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
+        display: flex;
+        height: 120px;
+        margin-left: 8px;
+        margin-right: 8px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Courier New, Courier, monospace;
+    }
+
+    .answer-box .bottomcenter-container {
         align-items: center;
         justify-content: center;
         height: 50%;
@@ -83,18 +139,10 @@
         font-family: Courier New, Courier, monospace;
     }
 
-        .answer-box .bottomcenter-container {
-            align-items: center;
-            justify-content: center;
-            height: 50%;
-            text-align: center;
-            font-family: Courier New, Courier, monospace;
-        }
-
-            .answer-box .bottomcenter-container .result-message {
-                white-space: pre-wrap;
-                font-size: 15px;
-            }
+    .answer-box .bottomcenter-container .result-message {
+        white-space: pre-wrap;
+        font-size: 15px;
+    }
 
     .user-input {
         font-size: 30px;
@@ -106,7 +154,7 @@
 
 @code {
 
-     //variables for both storing the uh numbers and the inputs from userrrr
+    //variables for both storing the uh numbers and the inputs from userrrr
     //define bool variables for flashing animation
     private int num1;
     private int num2;
@@ -114,8 +162,22 @@
     private bool isFlashingGreen = false;
     private bool isFlashingRed = false;
     private const string Level = "level";
-    private string flashClassGreen => isFlashingGreen ? "flashgreen" : "";
-    private string flashClassRed => isFlashingRed ? "flashred" : "";
+    private string flashClass
+    {
+        get
+        {
+            if (isFlashingGreen)
+            {
+                return "background-image-green";
+            } else if (isFlashingRed)
+            {
+                return "background-image-red";
+            } else
+            {
+                return "background-image";
+            }
+        }
+    }
 
     //for managing the visability of the resultsssss
     private string? resultMessage;
