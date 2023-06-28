@@ -5,27 +5,41 @@
 
     <div class="main-wrapper">
 
-        <div class="question-box">
-        
-            <div class="topcenter-container">
-                <p class="question">@num1 + @num2 = ?</p>
+        <div>
+            <div class="question-box">
+                <div class="topcenter-container">
+                    <p class="question">@num1 + @num2 = ?</p>
+                </div>
             </div>
-        
+            <div class="heart-div">
+                @for (int i = 0; i < enemyOnehp; i++)
+            {
+                <MatIcon Class="heart" Icon="favorite"></MatIcon>
+            }
+            </div>
         </div>
         
-        <div class="answer-box">
         
+        <div>
+            <div class="heart-div">
+            @for (int i = 0; i < mainChp; i++)
+            {
+                <MatIcon Class="heart-red" Icon="favorite"></MatIcon>
+            }
+        </div>
+
+        <div class="answer-box">
             <div class="bottomcenter-container">
                 <!--the text input box and the on enter key pressed-->
                 <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-        
+
                 <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
                 <p class="result-message">@resultMessage</p>
-        
-            </div>
-        
-        </div>
 
+            </div>
+        </div>
+        </div>
+        
     </div>
 
 </div>
@@ -36,6 +50,35 @@
     html, body {
         margin: 0;
         padding: 0;
+    }
+
+    .heart-div {
+        display: inline-flex;
+        justify-content: center;
+        margin-left: 8px;
+        width: 100%;
+    }
+
+    .heart {
+        height:60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+        color: white;
+    }
+
+    .heart-red {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+        color: red;
+    }
+
+    .material-icons {
+        font-size: 36px !important;
     }
 
     .main-wrapper {
