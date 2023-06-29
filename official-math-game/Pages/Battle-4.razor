@@ -1,29 +1,43 @@
 ﻿@page "/Battle-4"
 @inject ILocalStorageService localStorage
 
-<div class="@flashClassGreen">
+<div class="@flashClass">
 
-    <div class="@flashClassRed">
+    <div class="main-wrapper">
 
-        <div class="question-box">
-
-            <div class="topcenter-container">
-                <p class="question">@num1 x @num2 = ?</p>
+        <div>
+            <div class="question-box">
+                <div class="topcenter-container">
+                    <p class="question">@num1 x @num2 = ?</p>
+                </div>
             </div>
-
+            <div class="heart-div">
+                @for (int i = 0; i < enemyOnehp; i++)
+                {
+                    <MatIcon Class="heart" Icon="favorite"></MatIcon>
+                }
+            </div>
         </div>
 
-        <div class="answer-box">
 
-            <div class="bottomcenter-container">
-                <!--the text input box and the on enter key pressed-->
-                <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-
-                <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
-                <p class="result-message">@resultMessage</p>
-
+        <div>
+            <div class="heart-div">
+                @for (int i = 0; i < mainChp; i++)
+                {
+                    <MatIcon Class="heart-red" Icon="favorite"></MatIcon>
+                }
             </div>
 
+            <div class="answer-box">
+                <div class="bottomcenter-container">
+                    <!--the text input box and the on enter key pressed-->
+                    <input type="number" class="user-input" @bind="@userAnswer" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+
+                    <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
+                    <p class="result-message">@resultMessage</p>
+
+                </div>
+            </div>
         </div>
 
     </div>
@@ -32,32 +46,108 @@
 
 <!--the css styling bit lol-->
 <style>
-    
+
     html, body {
         margin: 0;
         padding: 0;
+    }
+
+    .heart-div {
+        display: inline-flex;
+        justify-content: center;
+        margin-left: 8px;
+        width: 100%;
+    }
+
+    .heart {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+        color: white;
+    }
+
+    .heart-red {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+        color: red;
+    }
+
+    .material-icons {
+        font-size: 36px !important;
+    }
+
+    .main-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         height: 100%;
     }
 
+    .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+    }
+
+    .background-image-red {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1-red.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+    }
+
+    .background-image-green {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("images/enemy1-green.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: -1;
+    }
+
     .question-box {
-        background-color: #f2f2f2;
+        background-color: black;
         padding: 20px;
         border-radius: 10px;
         margin-top: 20px;
         margin-bottom: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
+        margin-left: 8px;
+        margin-right: 8px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        height: 50%;
+        height: 120px;
         text-align: center;
         font-family: Courier New, Courier, monospace;
+        color: white;
+        border: 2px solid white;
     }
 
         .question-box .topcenter-container {
             align-items: center;
             justify-content: center;
-            height: 50%;
             text-align: center;
             font-family: Courier New, Courier, monospace;
         }
@@ -69,18 +159,20 @@
             }
 
     .answer-box {
-        background-color: #f2f2f2;
+        background-color: black;
         padding: 20px;
         border-radius: 10px;
-        margin-top: 550px;
         margin-bottom: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
+        display: flex;
+        height: 120px;
+        margin-left: 8px;
+        margin-right: 8px;
         align-items: center;
         justify-content: center;
-        height: 50%;
         text-align: center;
         font-family: Courier New, Courier, monospace;
+        color: white;
+        border: 2px solid white;
     }
 
         .answer-box .bottomcenter-container {
@@ -104,8 +196,8 @@
 
 </style>
 
-
 @code {
+
     //variables for both storing the uh numbers and the inputs from userrrr
     //define bool variables for flashing animation
     private int num1;
@@ -114,8 +206,24 @@
     private bool isFlashingGreen = false;
     private bool isFlashingRed = false;
     private const string Level = "level";
-    private string flashClassGreen => isFlashingGreen ? "flashgreen" : "";
-    private string flashClassRed => isFlashingRed ? "flashred" : "";
+    private string flashClass
+    {
+        get
+        {
+            if (isFlashingGreen)
+            {
+                return "background-image-green";
+            }
+            else if (isFlashingRed)
+            {
+                return "background-image-red";
+            }
+            else
+            {
+                return "background-image";
+            }
+        }
+    }
 
     //for managing the visability of the resultsssss
     private string? resultMessage;
