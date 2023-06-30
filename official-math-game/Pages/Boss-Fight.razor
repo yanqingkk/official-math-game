@@ -9,7 +9,10 @@
           
             <div class="topcenter-container">
                 <p class="question">@question</p>
+                <p class="timer">Time Remaining: @timeRemainingFormatted</p>
             </div>
+         
+           
 
         </div>
         
@@ -21,6 +24,7 @@
 
                 <!--this bit is for displaying the result, like the game over yes, skill issue stuff-->
                 <p class="result-message">@resultMessage</p>
+
 
             </div>
 
@@ -105,6 +109,16 @@
     private string flashClassGreen => isFlashingGreen ? "flashgreen" : "";
     private string flashClassRed => isFlashingRed ? "flashred" : "";
 
+
+
+
+    private const int CountdownDurationSeconds = 600;
+    private DateTime countdownStartTime;
+    private TimeSpan timeRemaining;
+    private string timeRemainingFormatted => string.Format("{0:mm\\:ss}", timeRemaining);
+    private Timer countdownTimer;
+
+
     //for managing the visability of the resultsssss
     private string? resultMessage;
 
@@ -114,11 +128,31 @@
     public int mainChp = 1;
     public int enemyOnehp = 5;
 
-    //what the thing first start this should runnn
     protected override void OnInitialized()
     {
         GenerateNumbers();
         resultMessage = "goodluck~";
+        StartCountdown();
+    }
+
+    private void StartCountdown()
+    {
+        countdownStartTime = DateTime.UtcNow;
+        timeRemaining = TimeSpan.FromSeconds(CountdownDurationSeconds);
+        countdownTimer = new Timer(UpdateTimer, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+    }
+
+    private void UpdateTimer(object state)
+    {
+        timeRemaining = TimeSpan.FromSeconds(CountdownDurationSeconds) - (DateTime.UtcNow - countdownStartTime);
+
+        if (timeRemaining.TotalSeconds <= 0)
+        {
+            countdownTimer.Dispose();
+            YouLose();
+        }
+
+        InvokeAsync(StateHasChanged);
     }
 
     //number gen and clear past user input
@@ -269,7 +303,7 @@
                 isCorrect = userAnswer == "13";
                 break;
             case 5:
-                isCorrect = userAnswer == "2";
+                isCorrect = userAnswer == "8";
                 break;
             case 6:
                 isCorrect = userAnswer == "30";
@@ -291,6 +325,7 @@
         return isCorrect;
     }
 
+    
 }
 
              
